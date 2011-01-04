@@ -41,17 +41,25 @@ __END__
 
 =head1 NAME
 
-Plack::Middleware::Static::Minifier - one line description
+Plack::Middleware::Static::Minifier - serves static files and minify CSS and JavaScript
 
 
 =head1 SYNOPSIS
 
-    use Plack::Middleware::Static::Minifier;
+    use Plack::Builder;
+    builder {
+        enable "Plack::Middleware::Static::Minifier",
+            path => qr{^/(js|css|images)/},
+            root => './htdocs/';
+        $app;
+    };
 
 
 =head1 DESCRIPTION
 
-Plack::Middleware::Static::Minifier is
+Plack::Middleware::Static::Minifier serves static files with Plack and minify CSS and JavaScript. This module is the subclass of Plack::Middleware::Static.
+
+See L<Plack::Middleware::Static> for more detail.
 
 
 =head1 REPOSITORY
@@ -67,7 +75,8 @@ Dai Okabayashi E<lt>bayashi@cpan.orgE<gt>
 
 =head1 SEE ALSO
 
-L<Other::Module>
+L<Plack::Middleware::Static>, L<CSS::Minifier::XS>, L<JavaScript::Minifier::XS>
+L<Plack::Middleware>, L<Plack>
 
 
 =head1 LICENSE
