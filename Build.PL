@@ -11,6 +11,9 @@ my $builder = Module::Build->new(
         'Test::More' => 0.88,
         'Plack::Test' => 0,
         'Plack::Builder' => 0,
+        'HTTP::Request::Common' => 0,
+        'HTTP::Response' => 0,
+        'Cwd' => 0,
     },
     requires => {
         'Carp' => 0,
