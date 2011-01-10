@@ -1,7 +1,6 @@
 package Plack::Middleware::Static::Minifier;
 use strict;
 use warnings;
-use Carp qw/croak/;
 use Plack::Util;
 use parent 'Plack::Middleware::Static';
 use CSS::Minifier::XS qw//;
@@ -65,7 +64,7 @@ See L<Plack::Middleware::Static> for more detail.
 =head1 REPOSITORY
 
 Plack::Middleware::Static::Minifier is hosted on github
-at http://github.com/bayashi/Plack-Middleware-Static-Minifier
+http://github.com/bayashi/Plack-Middleware-Static-Minifier
 
 
 =head1 AUTHOR

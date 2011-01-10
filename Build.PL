@@ -12,11 +12,10 @@ my $builder = Module::Build->new(
         'Plack::Test' => 0,
         'Plack::Builder' => 0,
         'HTTP::Request::Common' => 0,
-        'HTTP::Response' => 0,
         'Cwd' => 0,
     },
     requires => {
-        'Carp' => 0,
+        'parent' => 0,
         'Plack::Util' => 0,
         'Plack::Middleware::Static' => 0,
         'CSS::Minifier::XS' => 0,
