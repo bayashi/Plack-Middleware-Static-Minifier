@@ -64,7 +64,7 @@ See L<Plack::Middleware::Static> for more detail.
 =head1 REPOSITORY
 
 Plack::Middleware::Static::Minifier is hosted on github
-http://github.com/bayashi/Plack-Middleware-Static-Minifier
+<http://github.com/bayashi/Plack-Middleware-Static-Minifier>
 
 
 =head1 AUTHOR
