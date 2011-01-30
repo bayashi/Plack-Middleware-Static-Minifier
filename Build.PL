@@ -9,15 +9,12 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/Plack/Middleware/Static/Minifier.pm',
     build_requires      => {
         'Test::More' => 0.88,
-        'Plack::Test' => 0,
-        'Plack::Builder' => 0,
         'HTTP::Request::Common' => 0,
         'Cwd' => 0,
     },
     requires => {
         'parent' => 0,
-        'Plack::Util' => 0,
-        'Plack::Middleware::Static' => 0,
+        'Plack' => 0.9958,
         'CSS::Minifier::XS' => 0,
         'JavaScript::Minifier::XS' => 0,
     },
