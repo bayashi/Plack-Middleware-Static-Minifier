@@ -1,4 +1,7 @@
 Revision history for Perl extension Plack::Middleware::Static::Minifier
 
+0.02    Sun Jan 30 12:00:00 2011
+        - fixed dependency of modules in Build.PL
+
 0.01    Sat Jan 29 14:14:14 2011
         - original version
