@@ -2,9 +2,11 @@ package Plack::Middleware::Static::Minifier;
 use strict;
 use warnings;
 use Plack::Util;
+use Plack::Util::Accessor qw/cache/;
 use parent 'Plack::Middleware::Static';
 use CSS::Minifier::XS qw//;
 use JavaScript::Minifier::XS qw//;
+use Digest::MD5 qw/md5_hex/;
 
 our $VERSION = '0.02';
 
@@ -18,11 +20,20 @@ sub call {
         my $h = Plack::Util::headers($res->[1]);
         if ( $h->get('Content-Type')
                 && $h->get('Content-Type') =~ m!/(css|javascript)! ) {
-            my $m = $1;
+            my $ct = $1;
             my $body; Plack::Util::foreach($res->[2], sub { $body .= $_[0] });
-            $res->[2] = ($m =~ m!^css!)
-                      ? [ CSS::Minifier::XS::minify($body) ]
-                      : [ JavaScript::Minifier::XS::minify($body) ];
+            my $minified_body;
+            if ($self->cache) {
+                my $key = md5_hex($env->{PATH_INFO});
+                unless ( $minified_body = $self->cache->get($key) ) {
+                    $minified_body = _minify($ct,\$body);
+                    $self->cache->set($key, $minified_body);
+                }
+            }
+            else {
+                $minified_body = _minify($ct,\$body);
+            }
+            $res->[2] = $minified_body;
             $h->set('Content-Length', length $res->[2][0]);
         }
     }
@@ -32,6 +43,13 @@ sub call {
     }
 
     return $self->app->($env);
+}
+
+sub _minify {
+    my ($ct, $body_ref) = @_;
+    return ($ct =~ m!^css!)
+            ? [CSS::Minifier::XS::minify($$body_ref)]
+            : [JavaScript::Minifier::XS::minify($$body_ref)];
 }
 
 1;
@@ -50,6 +68,25 @@ Plack::Middleware::Static::Minifier - serves static files and minify CSS and Jav
         enable "Plack::Middleware::Static::Minifier",
             path => qr{^/(js|css|images)/},
             root => './htdocs/';
+        $app;
+    };
+
+or you can cache minified content
+
+    use Plack::Builder;
+    use Cache::FileCache;
+
+    my $cache = Cache::FileCache->new(+{
+        cache_root         => '/tmp/foo',
+        namespace          => 'namespace',
+        default_expires_in => 60*60*24*7,
+    });
+
+    builder {
+        enable "Plack::Middleware::Static::Minifier",
+            path  => qr{^/(js|css|images)/},
+            root  => './htdocs/',
+            cache => $cache;
         $app;
     };
 
