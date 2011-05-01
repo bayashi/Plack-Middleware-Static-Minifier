@@ -8,7 +8,7 @@ use CSS::Minifier::XS qw//;
 use JavaScript::Minifier::XS qw//;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub call {
     my $self = shift;
@@ -25,13 +25,16 @@ sub call {
             my $minified_body;
             if ($self->cache) {
                 my $key = md5_hex($env->{PATH_INFO});
-                unless ( $minified_body = $self->cache->get($key) ) {
-                    $minified_body = _minify($ct,\$body);
-                    $self->cache->set($key, $minified_body);
+                unless ( my $cache = $self->cache->get($key) ) {
+                    $minified_body = _minify($ct, \$body);
+                    $self->cache->set($key, @{$minified_body}[0]);
+                }
+                else {
+                    $minified_body = [$cache];
                 }
             }
             else {
-                $minified_body = _minify($ct,\$body);
+                $minified_body = _minify($ct, \$body);
             }
             $res->[2] = $minified_body;
             $h->set('Content-Length', length $res->[2][0]);
