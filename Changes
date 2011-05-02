@@ -1,5 +1,8 @@
 Revision history for Perl extension Plack::Middleware::Static::Minifier
 
+0.05    0:22 2011/05/03
+        - added cache test
+
 0.04    22:52 2011/05/01
         - fixed bug about cache option. don't use 0.03 that is broken.
 

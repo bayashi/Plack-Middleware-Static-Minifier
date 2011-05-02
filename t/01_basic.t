@@ -91,4 +91,37 @@ my %test2 = (
 
 test_psgi %test2;
 
+my $handler3 = builder {
+    enable 'Plack::Middleware::Static::Minifier',
+        path => sub { s!^/share/!! }, root => 'share', cache => MyCacheMock->new;
+    sub {
+        [200, [], ['ok']]
+    };
+};
+my %test3 = (
+    client => sub {
+        my $cb = shift;
+        note('cache');
+        {
+            my $res = $cb->(GET 'http://localhost/share/try.css');
+            is $res->code, 200;
+            is $res->content, 'html{margin:0px;padding:0px}body{margin:0px;padding:0px}';
+            is $res->content_type, 'text/css';
+
+            $res = $cb->(GET 'http://localhost/share/try.css');
+            is $res->code, 200;
+            is $res->content, 'html{margin:10px;padding:10px}'; # cached content
+            is $res->content_type, 'text/css';
+        }
+    },
+    app => $handler3,
+);
+
+test_psgi %test3;
+
 done_testing;
+
+package MyCacheMock;
+sub new { bless +{}, shift }
+sub set { $_[0]->{ $_[1] } = 'html{margin:10px;padding:10px}' }
+sub get { $_[0]->{ $_[1] } }
