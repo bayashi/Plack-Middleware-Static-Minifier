@@ -1,5 +1,8 @@
 Revision history for Perl extension Plack::Middleware::Static::Minifier
 
+0.06    17:03 2011/06/11
+        - not minify with Content-Encoding
+
 0.05    0:22 2011/05/03
         - added cache test
 
