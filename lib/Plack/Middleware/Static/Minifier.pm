@@ -18,7 +18,8 @@ sub call {
 
     if ($res && $res->[0] == 200) {
         my $h = Plack::Util::headers($res->[1]);
-        if ( $h->get('Content-Type')
+        if ( !defined $h->get('Content-Encoding')
+                && $h->get('Content-Type')
                 && $h->get('Content-Type') =~ m!/(css|javascript)! ) {
             my $ct = $1;
             my $body; Plack::Util::foreach($res->[2], sub { $body .= $_[0] });
