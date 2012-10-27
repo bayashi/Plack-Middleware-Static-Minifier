@@ -8,7 +8,7 @@ use CSS::Minifier::XS qw//;
 use JavaScript::Minifier::XS qw//;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.07';
+our $VERSION = '0.071';
 
 sub call {
     my $self = shift;
@@ -100,6 +100,15 @@ or you can cache minified content
 Plack::Middleware::Static::Minifier serves static files with Plack and minify CSS and JavaScript. This module is the subclass of Plack::Middleware::Static.
 
 See L<Plack::Middleware::Static> for more detail.
+
+
+=head1 METHOD
+
+=over 4
+
+=item call
+
+=back
 
 
 =head1 REPOSITORY

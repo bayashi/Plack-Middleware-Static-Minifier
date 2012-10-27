@@ -1,5 +1,10 @@
 Revision history for Perl extension Plack::Middleware::Static::Minifier
 
+0.071   Sun Oct 28 00:37:00 JST 2012
+    [NO CODE CHANGES]
+        - added test: pod-coverage
+        - added files for travis-ci.org
+
 0.07    Sat Oct 27 22:49:00 JST 2012
     [NO CODE CHANGES]
         - fixed for kwalitee
