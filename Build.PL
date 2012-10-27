@@ -13,10 +13,13 @@ my $builder = Module::Build->new(
         'Cwd' => 0,
     },
     requires => {
+        'perl' => '5.8.7',
         'parent' => 0,
         'Plack' => 0.9958,
+        'Plack::Util::Accessor' => 0,
         'CSS::Minifier::XS' => 0,
         'JavaScript::Minifier::XS' => 0,
+        'Digest::MD5' => 0,
     },
     add_to_cleanup      => [ 'Plack-Middleware-Static-Minifier-*' ],
     meta_merge     => {
