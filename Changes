@@ -1,5 +1,10 @@
 Revision history for Perl extension Plack::Middleware::Static::Minifier
 
+0.08    Sat Nov  2 15:08:50 JST 2013
+    [INCOMPATIBLE CHANGES]
+        - Minified CSS removes units on zero values ("0px" -> "0").
+            To depend on CSS::Minifier::XS 0.09 or later
+
 0.071   Sun Oct 28 00:37:00 JST 2012
     [NO CODE CHANGES]
         - added test: pod-coverage
