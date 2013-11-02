@@ -43,7 +43,7 @@ my %test = (
             note('minify CSS');
             my $res = $cb->(GET 'http://localhost/share/try.css');
             is $res->content_type, 'text/css';
-            is $res->content, 'html{margin:0px;padding:0px}body{margin:0px;padding:0px}';
+            is $res->content, 'html{margin:0;padding:0}body{margin:0;padding:0}';
         }
 
         {
@@ -78,7 +78,7 @@ my %test2 = (
         {
             my $res = $cb->(GET 'http://localhost/share/try.css');
             is $res->code, 200;
-            is $res->content, 'html{margin:0px;padding:0px}body{margin:0px;padding:0px}';
+            is $res->content, 'html{margin:0;padding:0}body{margin:0;padding:0}';
 
             $res = $cb->(GET 'http://localhost/share/not_found.css');
             is $res->code, 200;
@@ -105,7 +105,7 @@ my %test3 = (
         {
             my $res = $cb->(GET 'http://localhost/share/try.css');
             is $res->code, 200;
-            is $res->content, 'html{margin:0px;padding:0px}body{margin:0px;padding:0px}';
+            is $res->content, 'html{margin:0;padding:0}body{margin:0;padding:0}';
             is $res->content_type, 'text/css';
 
             $res = $cb->(GET 'http://localhost/share/try.css');

@@ -17,7 +17,7 @@ my $builder = Module::Build->new(
         'parent' => 0,
         'Plack' => 0.9958,
         'Plack::Util::Accessor' => 0,
-        'CSS::Minifier::XS' => 0,
+        'CSS::Minifier::XS' => 0.09,
         'JavaScript::Minifier::XS' => 0,
         'Digest::MD5' => 0,
     },
