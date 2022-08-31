@@ -8,7 +8,7 @@ use CSS::Minifier::XS qw//;
 use JavaScript::Minifier::XS qw//;
 use Digest::MD5 qw/md5_hex/;
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 sub call {
     my $self = shift;
