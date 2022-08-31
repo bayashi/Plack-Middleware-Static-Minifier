@@ -125,6 +125,44 @@ my $base = cwd;
     test_psgi %test3;
 }
 
+{
+    my $handler = builder {
+        enable 'Plack::Middleware::Static::Minifier',
+            path => sub { s!^/share/!!}, root => 'share', no_minify => 1;
+        mount '/' => builder {
+            sub {
+                [200, [], ['ok']]
+            };
+        };
+    };
+    my %test = (
+        client => sub {
+            my $cb  = shift;
+            {
+                note('not minify');
+                my $res = $cb->(GET 'http://localhost/share/try.css');
+                is $res->content_type, 'text/css';
+                is $res->content, <<_CSS_;
+/* comment */
+html {
+
+	margin: 0px;
+    padding: 0px;
+
+}
+
+body {
+    margin: 0px; padding: 0px;
+}
+_CSS_
+            }
+        },
+        app => $handler,
+    );
+
+    test_psgi %test;
+}
+
 done_testing;
 
 package MyCacheMock;
