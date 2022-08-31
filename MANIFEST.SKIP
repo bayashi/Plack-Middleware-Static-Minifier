@@ -9,11 +9,13 @@
 ^blib/
 ^_build/
 ^cover_db/
+^local/
+^extlib/
 ^pm_to_blib
 ^MakeMaker-\d
 \.gz$
-\.cvsignore
 \.gitignore
+\.cvsignore
 ^t/9\d_.*\.t
 ^t/perlcritic
 ^tools/
@@ -21,6 +23,9 @@
 ^[^/]+\.yaml$
 ^[^/]+\.pl$
 ^\.shipit$
+^\.travis\.yml$
+^\.github/
 ^\.git/
 \.sw[po]$
-^MYMETA.yml$
+^MYMETA\.*$
+Plack-Middleware-Static-Minifier-*
